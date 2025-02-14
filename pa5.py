@@ -7,7 +7,10 @@ def gcd(a, b):
     return gcd(b, a % b)
 
 # Problem 2: Direction simplification
+
+
 def remove_pairs(pathstring):
+
     if len(pathstring) < 2:
         return pathstring
     first_two = pathstring[:2]
@@ -15,6 +18,7 @@ def remove_pairs(pathstring):
         return remove_pairs(pathstring[2:])
     else:
         return pathstring[0] + remove_pairs(pathstring[1:])
+
 
 def simplify_pairs(pathstring):
     simplified = remove_pairs(pathstring)
@@ -25,7 +29,7 @@ def bisection_root(f, x0, x1):
     f_x0, f_x1 = f(x0), f(x1)
     if f_x0 * f_x1 > 0:
         raise ValueError("No root in interval")
-    tolerance = 0.001
+    tolerance = 1e-6
     
     while True:
         if abs(f_x0) <= tolerance:
@@ -47,6 +51,7 @@ def bisection_root(f, x0, x1):
 # Problem 4: Coin Change
 COINS = [100, 25, 10, 5, 1]
 
+
 def make_change(total):
     def helper(remaining, index):
         if remaining == 0:
@@ -66,6 +71,7 @@ def make_change(total):
         return combinations
     
     return helper(total, 0)
+
 
 # Problem 5: Dollar Change Analysis
 def fourdollarschange():
