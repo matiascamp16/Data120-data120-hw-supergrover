@@ -68,17 +68,23 @@ def make_change(total):
     return helper(total, 0)
 
 # Problem 5: Dollar Change Analysis
-from collections import defaultdict
+def compute_foundollarschange():
+    combinations = make_change(400)
+    num_ways = len(combinations)
+    freq = {}
+    for combo in combinations:
+        length = len(combo)
+        if length in freq:
+            freq[length] += 1
+        else:
+            freq[length] = 1
+    if not freq:
+        max_count = 0
+        mode_length = 0
+    else:
+        max_count = max(freq.values())
+        candidates = [k for k, v in freq.items() if v == max_count]
+        mode_length = max(candidates) if candidates else 0
+    return (400, num_ways, mode_length, max_count)
 
-combinations = make_change(400)
-num_ways = len(combinations)
-
-freq = defaultdict(int)
-for combo in combinations:
-    freq[len(combo)] += 1
-
-max_freq = max(freq.values(), default=0)
-mode_lengths = [k for k, v in freq.items() if v == max_freq]
-mode_length = max(mode_lengths) if mode_lengths else 0
-
-foundollarschange = (400, num_ways, mode_length, max_freq)
+foundollarschange = compute_foundollarschange()
