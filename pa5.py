@@ -1,4 +1,4 @@
-# Problem 1: GCD
+# Problem 1
 def gcd(a, b):
     a = abs(a)
     b = abs(b)
@@ -6,11 +6,9 @@ def gcd(a, b):
         return a
     return gcd(b, a % b)
 
-# Problem 2: Direction simplification
 
-
+# Problem 2
 def remove_pairs(pathstring):
-
     if len(pathstring) < 2:
         return pathstring
     first_two = pathstring[:2]
@@ -22,33 +20,39 @@ def remove_pairs(pathstring):
 
 def simplify_pairs(pathstring):
     simplified = remove_pairs(pathstring)
-    return simplified if simplified == pathstring else simplify_pairs(simplified)
+    return (
+        simplified
+        if simplified == pathstring
+        else simplify_pairs(simplified)
+    )
 
-# Problem 3: Bisection Method
+
+# Problem 3
 def bisection_root(f, x0, x1):
     f_x0, f_x1 = f(x0), f(x1)
     if f_x0 * f_x1 > 0:
         raise ValueError("No root in interval")
     tolerance = 1e-6
-    
+
     while True:
         if abs(f_x0) <= tolerance:
             return x0
         if abs(f_x1) <= tolerance:
             return x1
-        
+
         x_mid = (x0 + x1) / 2
         f_mid = f(x_mid)
-        
+
         if abs(f_mid) <= tolerance:
             return x_mid
-        
+
         if f_x0 * f_mid < 0:
             x1, f_x1 = x_mid, f_mid
         else:
             x0, f_x0 = x_mid, f_mid
 
-# Problem 4: Coin Change
+
+# Problem
 COINS = [100, 25, 10, 5, 1]
 
 
@@ -58,32 +62,32 @@ def make_change(total):
             return [[]]
         if index >= len(COINS) or remaining < 0:
             return []
-        
+
         coin = COINS[index]
         max_count = remaining // coin
         combinations = []
-        
+
         for count in range(max_count + 1):
             new_remaining = remaining - count * coin
-            for combo in helper(new_remaining, index + 1):
+            sub_combos = helper(new_remaining, index + 1)
+            for combo in sub_combos:
                 combinations.append([coin] * count + combo)
-        
+
         return combinations
-    
+
     return helper(total, 0)
 
 
-# Problem 5: Dollar Change Analysis
-def fourdollarschange():
+# Problem 5
+def compute_fourdollarschange():
     combinations = make_change(400)
     num_ways = len(combinations)
     freq = {}
+
     for combo in combinations:
         length = len(combo)
-        if length in freq:
-            freq[length] += 1
-        else:
-            freq[length] = 1
+        freq[length] = freq.get(length, 0) + 1
+
     if not freq:
         max_count = 0
         mode_length = 0
@@ -91,6 +95,8 @@ def fourdollarschange():
         max_count = max(freq.values())
         candidates = [k for k, v in freq.items() if v == max_count]
         mode_length = max(candidates) if candidates else 0
+
     return (400, num_ways, mode_length, max_count)
 
-fourdollarschange = fourdollarschange()
+
+fourdollarschange = compute_fourdollarschange()
