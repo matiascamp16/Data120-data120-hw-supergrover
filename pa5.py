@@ -68,7 +68,7 @@ def make_change(total):
     return helper(total, 0)
 
 # Problem 5: Dollar Change Analysis
-def compute_foundollarschange():
+def foundollarschange():
     combinations = make_change(400)
     num_ways = len(combinations)
     freq = {}
@@ -87,4 +87,4 @@ def compute_foundollarschange():
         mode_length = max(candidates) if candidates else 0
     return (400, num_ways, mode_length, max_count)
 
-foundollarschange = compute_foundollarschange()
+foundollarschange = foundollarschange()
